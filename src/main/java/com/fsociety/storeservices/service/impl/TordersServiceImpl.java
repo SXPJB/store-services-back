@@ -47,10 +47,20 @@ public class TordersServiceImpl implements TordersService{
 				Integer idUser = (Integer)data.get("idUser");
 				tordersOptional.get().setIdUser(idUser);
 			}
+			//destinationDir
+			if(data.containsKey("destinationDir")){
+				String destinationDir = data.get("destinationDir").toString();
+				tordersOptional.get().setDestinationDir(destinationDir);
+			}
 			//total
 			if(data.containsKey("total")){
 				String total = data.get("total").toString();
 				tordersOptional.get().setTotal(total);
+			}
+			//isDelivered
+			if(data.containsKey("isDelivered")){
+				Boolean isDelivered = (Boolean)data.get("isDelivered");
+				tordersOptional.get().setIsDelivered(isDelivered);
 			}
 			//createdBy
 			if(data.containsKey("createdBy")){

@@ -20,8 +20,12 @@ public class Torders implements Serializable{
 	private Integer id;
 	@Column(name = "id_user")
 	private Integer idUser;
+	@Column(name = "destination_dir")
+	private String destinationDir;
 	@Column(name = "total")
 	private String total;
+	@Column(name = "is_delivered")
+	private Boolean isDelivered;
 	@Column(name = "created_by")
 	private Integer createdBy;
 	@Column(name = "cerated_at")
@@ -49,12 +53,28 @@ public class Torders implements Serializable{
 		  this.idUser=idUser;
 	}
 
+	public String getDestinationDir(){
+		 return destinationDir;
+	}
+
+	public void setDestinationDir(String destinationDir){
+		  this.destinationDir=destinationDir;
+	}
+
 	public String getTotal(){
 		 return total;
 	}
 
 	public void setTotal(String total){
 		  this.total=total;
+	}
+
+	public Boolean getIsDelivered(){
+		 return isDelivered;
+	}
+
+	public void setIsDelivered(Boolean isDelivered){
+		  this.isDelivered=isDelivered;
 	}
 
 	public Integer getCreatedBy(){

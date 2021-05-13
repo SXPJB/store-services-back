@@ -24,7 +24,7 @@ public class SwaggerConfig {
 	private static ApiInfo metaData() {
 		return new ApiInfoBuilder()
 			.title("storeservices")
-			.description("Es un proyecto para los servicios rest de una tiendaunline")
+			.description("sd")
 			.version("0.0.1-SNAPSHOT")
  			.build();
 	}

@@ -20,6 +20,8 @@ public class Ttraking implements Serializable{
 	private Integer id;
 	@Column(name = "id_order")
 	private Integer idOrder;
+	@Column(name = "direction")
+	private String direction;
 	@Column(name = "created_by")
 	private Integer createdBy;
 	@Column(name = "cerated_at")
@@ -41,6 +43,14 @@ public class Ttraking implements Serializable{
 
 	public void setIdOrder(Integer idOrder){
 		  this.idOrder=idOrder;
+	}
+
+	public String getDirection(){
+		 return direction;
+	}
+
+	public void setDirection(String direction){
+		  this.direction=direction;
 	}
 
 	public Integer getCreatedBy(){

@@ -47,6 +47,11 @@ public class TtrakingServiceImpl implements TtrakingService{
 				Integer idOrder = (Integer)data.get("idOrder");
 				ttrakingOptional.get().setIdOrder(idOrder);
 			}
+			//direction
+			if(data.containsKey("direction")){
+				String direction = data.get("direction").toString();
+				ttrakingOptional.get().setDirection(direction);
+			}
 			//createdBy
 			if(data.containsKey("createdBy")){
 				Integer createdBy = (Integer)data.get("createdBy");
