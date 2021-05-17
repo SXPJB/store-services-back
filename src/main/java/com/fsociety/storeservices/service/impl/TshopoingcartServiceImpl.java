@@ -1,6 +1,8 @@
 package com.fsociety.storeservices.service.impl;
 
+import com.fsociety.storeservices.entity.Tproducts;
 import com.fsociety.storeservices.entity.Tshopoingcart;
+import com.fsociety.storeservices.repository.TproductsRepository;
 import com.fsociety.storeservices.repository.TshopoingcartRepository;
 import com.fsociety.storeservices.service.TshopoingcartService;
 import org.slf4j.Logger;
@@ -22,11 +24,18 @@ public class TshopoingcartServiceImpl implements TshopoingcartService{
 	@Autowired
 	private TshopoingcartRepository tshopoingcartRepository;
 
+	@Autowired
+	private TproductsRepository tproductsRepository;
+
 	@Override
 	public void insert(Tshopoingcart tshopoingcart ) throws Exception{
 		LOGGER.debug(">>>Insert()->tshopoingcart:{}",tshopoingcart);
 		try{
-			tshopoingcartRepository.save(tshopoingcart);
+			tshopoingcart.setStatus(true);
+			Tshopoingcart shopoingcart=tshopoingcartRepository.save(tshopoingcart);
+			Tproducts tproducts=tproductsRepository.getOne(shopoingcart.getIdProduct());
+			tproducts.setInventary(tproducts.getInventary()-shopoingcart.getAmount());
+			tproductsRepository.save(tproducts);
 		}catch (Exception e){
 			LOGGER.error("Exception: {}",e);
 			throw new Exception(e);

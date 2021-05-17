@@ -24,14 +24,22 @@ public class TordersServiceImpl implements TordersService{
 	private TordersRepository tordersRepository;
 
 	@Override
-	public void insert(Torders torders ) throws Exception{
+	public Torders insert(Torders torders ) throws Exception{
 		LOGGER.debug(">>>Insert()->torders:{}",torders);
+		Torders orders=null;
 		try{
-			tordersRepository.save(torders);
+			torders.setTotal(0.0);
+			torders.setCeratedAt(new Date());
+			torders.setDestinationDir("");
+			torders.setDelivered(false);
+			torders.setStatus(true);
+			orders=tordersRepository.save(torders);
+
 		}catch (Exception e){
 			LOGGER.error("Exception: {}",e);
 			throw new Exception(e);
 		}
+		return orders;
 	}
 	@Override
 	public void update(Integer id, Map<String,Object> data) throws Exception{
@@ -54,13 +62,17 @@ public class TordersServiceImpl implements TordersService{
 			}
 			//total
 			if(data.containsKey("total")){
-				String total = data.get("total").toString();
+				Double total = Double.parseDouble(data.get("total").toString());
 				tordersOptional.get().setTotal(total);
 			}
 			//isDelivered
 			if(data.containsKey("isDelivered")){
 				Boolean isDelivered = (Boolean)data.get("isDelivered");
-				tordersOptional.get().setIsDelivered(isDelivered);
+				tordersOptional.get().setDelivered(isDelivered);
+			}
+			if(data.containsKey("state")){
+				String state=data.get("state").toString();
+				tordersOptional.get().setState(state);
 			}
 			//createdBy
 			if(data.containsKey("createdBy")){

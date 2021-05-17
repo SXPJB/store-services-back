@@ -2,6 +2,8 @@ package com.fsociety.storeservices.entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,9 +25,11 @@ public class Torders implements Serializable{
 	@Column(name = "destination_dir")
 	private String destinationDir;
 	@Column(name = "total")
-	private String total;
+	private Double total;
 	@Column(name = "is_delivered")
 	private Boolean isDelivered;
+	@Column(name = "state")
+	private String state;
 	@Column(name = "created_by")
 	private Integer createdBy;
 	@Column(name = "cerated_at")
@@ -37,84 +41,92 @@ public class Torders implements Serializable{
 	@Column(name = "status")
 	private Boolean status;
 
-	public Integer getId(){
-		 return id;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setId(Integer id){
-		  this.id=id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Integer getIdUser(){
-		 return idUser;
+	public Integer getIdUser() {
+		return idUser;
 	}
 
-	public void setIdUser(Integer idUser){
-		  this.idUser=idUser;
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
 	}
 
-	public String getDestinationDir(){
-		 return destinationDir;
+	public String getDestinationDir() {
+		return destinationDir;
 	}
 
-	public void setDestinationDir(String destinationDir){
-		  this.destinationDir=destinationDir;
+	public void setDestinationDir(String destinationDir) {
+		this.destinationDir = destinationDir;
 	}
 
-	public String getTotal(){
-		 return total;
+	public Double getTotal() {
+		return total;
 	}
 
-	public void setTotal(String total){
-		  this.total=total;
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 
-	public Boolean getIsDelivered(){
-		 return isDelivered;
+	public Boolean getDelivered() {
+		return isDelivered;
 	}
 
-	public void setIsDelivered(Boolean isDelivered){
-		  this.isDelivered=isDelivered;
+	public void setDelivered(Boolean delivered) {
+		isDelivered = delivered;
 	}
 
-	public Integer getCreatedBy(){
-		 return createdBy;
+	public String getState() {
+		return state;
 	}
 
-	public void setCreatedBy(Integer createdBy){
-		  this.createdBy=createdBy;
+	public void setState(String state) {
+		this.state = state;
 	}
 
-	public Date getCeratedAt(){
-		 return ceratedAt;
+	public Integer getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setCeratedAt(Date ceratedAt){
-		  this.ceratedAt=ceratedAt;
+	public void setCreatedBy(Integer createdBy) {
+		this.createdBy = createdBy;
 	}
 
-	public Date getModifiedAt(){
-		 return modifiedAt;
+	public Date getCeratedAt() {
+		return ceratedAt;
 	}
 
-	public void setModifiedAt(Date modifiedAt){
-		  this.modifiedAt=modifiedAt;
+	public void setCeratedAt(Date ceratedAt) {
+		this.ceratedAt = ceratedAt;
 	}
 
-	public Integer getModifiedBy(){
-		 return modifiedBy;
+	public Date getModifiedAt() {
+		return modifiedAt;
 	}
 
-	public void setModifiedBy(Integer modifiedBy){
-		  this.modifiedBy=modifiedBy;
+	public void setModifiedAt(Date modifiedAt) {
+		this.modifiedAt = modifiedAt;
 	}
 
-	public Boolean getStatus(){
-		 return status;
+	public Integer getModifiedBy() {
+		return modifiedBy;
 	}
 
-	public void setStatus(Boolean status){
-		  this.status=status;
+	public void setModifiedBy(Integer modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 	@Override
