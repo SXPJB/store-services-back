@@ -75,4 +75,17 @@ public class TusersEndpoint{
 		}
 		return response;
 	}
+
+	@PostMapping("/login")
+	public ResponseEntity<ResponseBody<Tusers>> login(@RequestBody Map<String,String> data){
+		ResponseEntity<ResponseBody<Tusers>> res=null;
+		try {
+			Tusers tusers = tusersService.login(data.get("email"),data.get("password"));
+			res = Utils.<Tusers>response(HttpStatus.OK,"Inciciado con exito",tusers);
+		}catch (Exception e){
+			res = Utils.<Tusers>response(HttpStatus.NOT_FOUND,false,"Datos incorrectos",null);
+		}
+		return res;
+	}
+
 }

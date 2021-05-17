@@ -42,10 +42,10 @@ public class TusersServiceImpl implements TusersService{
 				throw new Exception("No existe el registro");
 			}
 			//idRol
-			if(data.containsKey("idRol")){
-				Integer idRol = (Integer)data.get("idRol");
-				tusersOptional.get().setIdRol(idRol);
-			}
+//			if(data.containsKey("idRol")){
+//				Integer idRol = (Integer)data.get("idRol");
+//				tusersOptional.get().setIdRol(idRol);
+//			}
 			//idPerson
 			if(data.containsKey("idPerson")){
 				Integer idPerson = (Integer)data.get("idPerson");
@@ -99,6 +99,23 @@ public class TusersServiceImpl implements TusersService{
 		}
 		LOGGER.debug(">>>> findAll <<<< tusersList: {}",tusersList);
 		return tusersList;
+	}
+
+	@Override
+	public Tusers login(String email, String password) throws Exception {
+		Tusers tusers = null;
+		LOGGER.info("user info {}-{}",email,password);
+		try {
+			tusers = tusersRepository.findByEmailAndPassword(email, password);
+			if(tusers==null){
+				throw new Exception("No data");
+			}
+		}catch (Exception e){
+			LOGGER.info("Error al logearse {}",e.getMessage());
+			throw new Exception(e);
+		}
+		LOGGER.info("user info {}",tusers);
+		return tusers;
 	}
 
 }

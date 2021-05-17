@@ -1,24 +1,25 @@
 package com.fsociety.storeservices.entity;
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.*;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
 @Table(name= "tusers")
-public class Tusers implements Serializable{ 
+@NamedQueries(
+		@NamedQuery( name = "Tusers.findByEmailAndPassword"
+				, query = "SELECT u FROM  Tusers u where u.email = :email and u.password = :password and u.status=true")
+)
+public class Tusers implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	@Column(name = "id_rol")
-	private Integer idRol;
+	@ManyToOne
+	@JoinColumn(name = "id_rol", referencedColumnName = "id")
+	private Troles idRol;
 	@Column(name = "id_person")
 	private Integer idPerson;
 	@Column(name = "email")
@@ -36,11 +37,11 @@ public class Tusers implements Serializable{
 		  this.id=id;
 	}
 
-	public Integer getIdRol(){
+	public Troles getIdRol(){
 		 return idRol;
 	}
 
-	public void setIdRol(Integer idRol){
+	public void setIdRol(Troles idRol){
 		  this.idRol=idRol;
 	}
 
