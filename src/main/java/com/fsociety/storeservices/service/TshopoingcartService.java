@@ -7,4 +7,5 @@ public interface TshopoingcartService{
 	void update(Integer id, Map<String,Object> data) throws Exception;
 	void delete(Integer id) throws Exception;
 	List<Tshopoingcart> findAll(int page,int size) throws Exception;
+	List<Tshopoingcart> findShoppingCartByUserSateC(int idOrder,int idUser) throws Exception;
 }

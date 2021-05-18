@@ -47,10 +47,10 @@ public class TusersServiceImpl implements TusersService{
 //				tusersOptional.get().setIdRol(idRol);
 //			}
 			//idPerson
-			if(data.containsKey("idPerson")){
-				Integer idPerson = (Integer)data.get("idPerson");
-				tusersOptional.get().setIdPerson(idPerson);
-			}
+//			if(data.containsKey("idPerson")){
+//				Integer idPerson = (Integer)data.get("idPerson");
+//				tusersOptional.get().setIdPerson(idPerson);
+//			}
 			//email
 			if(data.containsKey("email")){
 				String email = data.get("email").toString();

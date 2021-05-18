@@ -1,11 +1,7 @@
 package com.fsociety.storeservices.entity;
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.*;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,8 +14,9 @@ public class Ttraking implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	@Column(name = "id_order")
-	private Integer idOrder;
+	@ManyToOne
+	@JoinColumn(name = "id_order",referencedColumnName = "id")
+	private Torders idOrder;
 	@Column(name = "direction")
 	private String direction;
 	@Column(name = "created_by")
@@ -37,11 +34,11 @@ public class Ttraking implements Serializable{
 		  this.id=id;
 	}
 
-	public Integer getIdOrder(){
+	public Torders getIdOrder(){
 		 return idOrder;
 	}
 
-	public void setIdOrder(Integer idOrder){
+	public void setIdOrder(Torders idOrder){
 		  this.idOrder=idOrder;
 	}
 

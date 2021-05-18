@@ -51,10 +51,10 @@ public class TordersServiceImpl implements TordersService{
 				throw new Exception("No existe el registro");
 			}
 			//idUser
-			if(data.containsKey("idUser")){
-				Integer idUser = (Integer)data.get("idUser");
-				tordersOptional.get().setIdUser(idUser);
-			}
+//			if(data.containsKey("idUser")){
+//				Integer idUser = (Integer)data.get("idUser");
+//				tordersOptional.get().setIdUser(idUser);
+//			}
 			//destinationDir
 			if(data.containsKey("destinationDir")){
 				String destinationDir = data.get("destinationDir").toString();

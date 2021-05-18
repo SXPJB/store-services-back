@@ -1,13 +1,7 @@
 package com.fsociety.storeservices.entity;
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.*;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,8 +14,9 @@ public class Torders implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	@Column(name = "id_user")
-	private Integer idUser;
+	@ManyToOne
+	@JoinColumn(name = "id_user",referencedColumnName = "id")
+	private Tusers idUser;
 	@Column(name = "destination_dir")
 	private String destinationDir;
 	@Column(name = "total")
@@ -49,11 +44,11 @@ public class Torders implements Serializable{
 		this.id = id;
 	}
 
-	public Integer getIdUser() {
+	public Tusers getIdUser() {
 		return idUser;
 	}
 
-	public void setIdUser(Integer idUser) {
+	public void setIdUser(Tusers idUser) {
 		this.idUser = idUser;
 	}
 

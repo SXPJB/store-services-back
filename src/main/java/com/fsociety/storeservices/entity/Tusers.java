@@ -1,7 +1,10 @@
 package com.fsociety.storeservices.entity;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,8 +23,9 @@ public class Tusers implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "id_rol", referencedColumnName = "id")
 	private Troles idRol;
-	@Column(name = "id_person")
-	private Integer idPerson;
+	@ManyToOne
+	@JoinColumn(name = "id_person", referencedColumnName = "id")
+	private Tperson idPerson;
 	@Column(name = "email")
 	private String email;
 	@Column(name = "password")
@@ -45,11 +49,11 @@ public class Tusers implements Serializable{
 		  this.idRol=idRol;
 	}
 
-	public Integer getIdPerson(){
+	public Tperson getIdPerson(){
 		 return idPerson;
 	}
 
-	public void setIdPerson(Integer idPerson){
+	public void setIdPerson(Tperson idPerson){
 		  this.idPerson=idPerson;
 	}
 

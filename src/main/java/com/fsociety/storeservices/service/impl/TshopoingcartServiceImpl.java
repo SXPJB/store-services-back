@@ -1,9 +1,8 @@
 package com.fsociety.storeservices.service.impl;
 
-import com.fsociety.storeservices.entity.Tproducts;
 import com.fsociety.storeservices.entity.Tshopoingcart;
-import com.fsociety.storeservices.repository.TproductsRepository;
 import com.fsociety.storeservices.repository.TshopoingcartRepository;
+import com.fsociety.storeservices.service.TpersonService;
 import com.fsociety.storeservices.service.TshopoingcartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,17 +24,14 @@ public class TshopoingcartServiceImpl implements TshopoingcartService{
 	private TshopoingcartRepository tshopoingcartRepository;
 
 	@Autowired
-	private TproductsRepository tproductsRepository;
+	private TpersonService tpersonService;
 
 	@Override
 	public void insert(Tshopoingcart tshopoingcart ) throws Exception{
 		LOGGER.debug(">>>Insert()->tshopoingcart:{}",tshopoingcart);
 		try{
 			tshopoingcart.setStatus(true);
-			Tshopoingcart shopoingcart=tshopoingcartRepository.save(tshopoingcart);
-			Tproducts tproducts=tproductsRepository.getOne(shopoingcart.getIdProduct());
-			tproducts.setInventary(tproducts.getInventary()-shopoingcart.getAmount());
-			tproductsRepository.save(tproducts);
+			tshopoingcartRepository.save(tshopoingcart);
 		}catch (Exception e){
 			LOGGER.error("Exception: {}",e);
 			throw new Exception(e);
@@ -50,16 +46,16 @@ public class TshopoingcartServiceImpl implements TshopoingcartService{
 			if(!tshopoingcartOptional.isPresent()){
 				throw new Exception("No existe el registro");
 			}
-			//idOrder
-			if(data.containsKey("idOrder")){
-				Integer idOrder = (Integer)data.get("idOrder");
-				tshopoingcartOptional.get().setIdOrder(idOrder);
-			}
-			//idProduct
-			if(data.containsKey("idProduct")){
-				Integer idProduct = (Integer)data.get("idProduct");
-				tshopoingcartOptional.get().setIdProduct(idProduct);
-			}
+//			//idOrder
+//			if(data.containsKey("idOrder")){
+//				Integer idOrder = (Integer)data.get("idOrder");
+//				tshopoingcartOptional.get().setIdOrder(idOrder);
+//			}
+//			//idProduct
+//			if(data.containsKey("idProduct")){
+//				Integer idProduct = (Integer)data.get("idProduct");
+//				tshopoingcartOptional.get().setIdProduct(idProduct);
+//			}
 			//amount
 			if(data.containsKey("amount")){
 				Integer amount = (Integer)data.get("amount");
@@ -102,6 +98,18 @@ public class TshopoingcartServiceImpl implements TshopoingcartService{
 			throw new Exception(e);
 		}
 		LOGGER.debug(">>>> findAll <<<< tshopoingcartList: {}",tshopoingcartList);
+		return tshopoingcartList;
+	}
+
+	@Override
+	public List<Tshopoingcart> findShoppingCartByUserSateC(int idOrder, int idUser) throws Exception {
+		List<Tshopoingcart> tshopoingcartList=null;
+		try {
+			tshopoingcartList = tshopoingcartRepository.findShoppingCartByUserSateC(idOrder,idUser);
+		}catch (Exception e){
+			LOGGER.error("Exception: {}",e.getMessage());
+			throw new Exception(e);
+		}
 		return tshopoingcartList;
 	}
 
