@@ -1,4 +1,5 @@
 package com.fsociety.storeservices.entity;
+
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -6,132 +7,138 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Date;
+
 @Entity
-@Table(name= "torders")
-public class Torders implements Serializable{ 
+@Table(name = "torders")
+@NamedQueries({
+        @NamedQuery(name = "Torders.findOrderActiveByUserStateC", query = "SELECT o FROM Torders o WHERE o.id = :idOrder and o.status = true and o.idUser.id = :idUser and o.state='C'")
+        , @NamedQuery(name = "Torders.findOrderByUserPage", query = "SELECT o FROM Torders o WHERE o.status = true and o.idUser.id = :idUser and o.state = 'T'")
+})
+public class Torders implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
-	@ManyToOne
-	@JoinColumn(name = "id_user",referencedColumnName = "id")
-	private Tusers idUser;
-	@Column(name = "destination_dir")
-	private String destinationDir;
-	@Column(name = "total")
-	private Double total;
-	@Column(name = "is_delivered")
-	private Boolean isDelivered;
-	@Column(name = "state")
-	private String state;
-	@Column(name = "created_by")
-	private Integer createdBy;
-	@Column(name = "cerated_at")
-	private Date ceratedAt;
-	@Column(name = "modified_at")
-	private Date modifiedAt;
-	@Column(name = "modified_by")
-	private Integer modifiedBy;
-	@Column(name = "status")
-	private Boolean status;
 
-	public Integer getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "id_user", referencedColumnName = "id")
+    private Tusers idUser;
+    @Column(name = "destination_dir")
+    private String destinationDir;
+    @Column(name = "total")
+    private Double total;
+    @Column(name = "is_delivered")
+    private Boolean isDelivered;
+    @Column(name = "state")
+    private String state;
+    @Column(name = "created_by")
+    private Integer createdBy;
+    @Column(name = "cerated_at")
+    private Date ceratedAt;
+    @Column(name = "modified_at")
+    private Date modifiedAt;
+    @Column(name = "modified_by")
+    private Integer modifiedBy;
+    @Column(name = "status")
+    private Boolean status;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public Tusers getIdUser() {
-		return idUser;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setIdUser(Tusers idUser) {
-		this.idUser = idUser;
-	}
+    public Tusers getIdUser() {
+        return idUser;
+    }
 
-	public String getDestinationDir() {
-		return destinationDir;
-	}
+    public void setIdUser(Tusers idUser) {
+        this.idUser = idUser;
+    }
 
-	public void setDestinationDir(String destinationDir) {
-		this.destinationDir = destinationDir;
-	}
+    public String getDestinationDir() {
+        return destinationDir;
+    }
 
-	public Double getTotal() {
-		return total;
-	}
+    public void setDestinationDir(String destinationDir) {
+        this.destinationDir = destinationDir;
+    }
 
-	public void setTotal(Double total) {
-		this.total = total;
-	}
+    public Double getTotal() {
+        return total;
+    }
 
-	public Boolean getDelivered() {
-		return isDelivered;
-	}
+    public void setTotal(Double total) {
+        this.total = total;
+    }
 
-	public void setDelivered(Boolean delivered) {
-		isDelivered = delivered;
-	}
+    public Boolean getDelivered() {
+        return isDelivered;
+    }
 
-	public String getState() {
-		return state;
-	}
+    public void setDelivered(Boolean delivered) {
+        isDelivered = delivered;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public String getState() {
+        return state;
+    }
 
-	public Integer getCreatedBy() {
-		return createdBy;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public void setCreatedBy(Integer createdBy) {
-		this.createdBy = createdBy;
-	}
+    public Integer getCreatedBy() {
+        return createdBy;
+    }
 
-	public Date getCeratedAt() {
-		return ceratedAt;
-	}
+    public void setCreatedBy(Integer createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	public void setCeratedAt(Date ceratedAt) {
-		this.ceratedAt = ceratedAt;
-	}
+    public Date getCeratedAt() {
+        return ceratedAt;
+    }
 
-	public Date getModifiedAt() {
-		return modifiedAt;
-	}
+    public void setCeratedAt(Date ceratedAt) {
+        this.ceratedAt = ceratedAt;
+    }
 
-	public void setModifiedAt(Date modifiedAt) {
-		this.modifiedAt = modifiedAt;
-	}
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
 
-	public Integer getModifiedBy() {
-		return modifiedBy;
-	}
+    public void setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
 
-	public void setModifiedBy(Integer modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
+    public Integer getModifiedBy() {
+        return modifiedBy;
+    }
 
-	public Boolean getStatus() {
-		return status;
-	}
+    public void setModifiedBy(Integer modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
 
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
+    public Boolean getStatus() {
+        return status;
+    }
 
-	@Override
-	public String toString() {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			return mapper.writeValueAsString(this);
-		} catch (JsonProcessingException e) {
-			return e.getMessage();
-		}
-	}
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            return e.getMessage();
+        }
+    }
 
 }

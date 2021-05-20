@@ -1,6 +1,7 @@
 package com.fsociety.storeservices.endpoint;
 
 import com.fsociety.storeservices.entity.Tshopoingcart;
+import com.fsociety.storeservices.entity.bo.OrdersFullBO;
 import com.fsociety.storeservices.service.TshopoingcartService;
 import com.fsociety.storeservices.config.ResponseBody;
 import com.fsociety.storeservices.config.Utils;
@@ -79,15 +80,15 @@ public class TshopoingcartEndpoint {
     }
 
     @GetMapping("/findShoppingCartByUserSateC")
-    public ResponseEntity<ResponseBody<List<Tshopoingcart>>> findShoppingCartByUserSateC(@RequestParam("idOrder") int idOrder,
-                                                                                         @RequestParam("idUser") int idUser) {
-        ResponseEntity<ResponseBody<List<Tshopoingcart>>> res = null;
-        List<Tshopoingcart> tshopoingcarts = null;
+    public ResponseEntity<ResponseBody<OrdersFullBO>> findShoppingCartByUserSateC(@RequestParam("idOrder") int idOrder,
+                                                                                        @RequestParam("idUser") int idUser) {
+        ResponseEntity<ResponseBody<OrdersFullBO>> res = null;
+        OrdersFullBO ordersFullBO=null;
         try {
-            tshopoingcarts = tshopoingcartService.findShoppingCartByUserSateC(idOrder,idUser);
-            res = Utils.<List<Tshopoingcart>>response(HttpStatus.OK, "Lista encontrada", tshopoingcarts);
+            ordersFullBO = tshopoingcartService.findShoppingCartByUserSateC(idOrder,idUser);
+            res = Utils.<OrdersFullBO>response(HttpStatus.OK, "Se encontro el carrito de compras", ordersFullBO);
         } catch (Exception e) {
-            res = Utils.<List<Tshopoingcart>>response(HttpStatus.NOT_FOUND, "Error al encontrar la lista", tshopoingcarts);
+            res = Utils.<OrdersFullBO>response(HttpStatus.NOT_FOUND, "No existen resultados de la busqueda", ordersFullBO);
         }
         return res;
     }

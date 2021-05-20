@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Entity
 @Table(name = "tshopoingcart")
 @NamedQueries(
-        @NamedQuery(name = "Tshopoingcart.findShoppingCartByUserSateC",
-                query = "SELECT s FROM Tshopoingcart s WHERE s.idOrder.id = :idOrder and s.idOrder.idUser.id = :idUser and s.status = true and s.idOrder.state = 'C'")
+        @NamedQuery(name = "Tshopoingcart.findShoppingCartByOrder",
+                query = "SELECT s FROM Tshopoingcart s WHERE s.idOrder.id = :idOrder and s.status = true")
 )
 public class Tshopoingcart implements Serializable {
 

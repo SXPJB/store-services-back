@@ -1,6 +1,7 @@
 package com.fsociety.storeservices.endpoint;
 
 import com.fsociety.storeservices.entity.Torders;
+import com.fsociety.storeservices.entity.bo.OrdersFullBO;
 import com.fsociety.storeservices.service.TordersService;
 import com.fsociety.storeservices.config.ResponseBody;
 import com.fsociety.storeservices.config.Utils;
@@ -77,5 +78,19 @@ public class TordersEndpoint {
             response = Utils.<List<Torders>>response(HttpStatus.NOT_FOUND, "Lista encontrada", tordersList);
         }
         return response;
+    }
+
+    @GetMapping("/findOrderByUserPage")
+    public ResponseEntity<ResponseBody<List<OrdersFullBO>>> findOrderByUserPage(@RequestParam("idUser") int idUser){
+        ResponseEntity<ResponseBody<List<OrdersFullBO>>> res=null;
+        List<OrdersFullBO>fullBOS=null;
+        LOGGER.info("findOrderByUserPage >>> {}",idUser);
+        try {
+            fullBOS = tordersService.findOrderByUserPage(idUser);
+            res = Utils.<List<OrdersFullBO>>response(HttpStatus.OK, "Lista de pedidos encotrada", fullBOS);
+        }catch (Exception e){
+            res = Utils.<List<OrdersFullBO>>response(HttpStatus.NOT_FOUND, "No se encontro informacion", fullBOS);
+        }
+        return res;
     }
 }

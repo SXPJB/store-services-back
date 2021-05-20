@@ -1,5 +1,7 @@
 package com.fsociety.storeservices.service;
 import com.fsociety.storeservices.entity.Tshopoingcart;
+import com.fsociety.storeservices.entity.bo.OrdersFullBO;
+
 import java.util.List;
 import java.util.Map;
 public interface TshopoingcartService{
@@ -7,5 +9,5 @@ public interface TshopoingcartService{
 	void update(Integer id, Map<String,Object> data) throws Exception;
 	void delete(Integer id) throws Exception;
 	List<Tshopoingcart> findAll(int page,int size) throws Exception;
-	List<Tshopoingcart> findShoppingCartByUserSateC(int idOrder,int idUser) throws Exception;
+	OrdersFullBO findShoppingCartByUserSateC(int idOrder, int idUser) throws Exception;
 }
