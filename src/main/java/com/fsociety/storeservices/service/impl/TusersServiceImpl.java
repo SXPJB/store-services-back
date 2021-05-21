@@ -1,12 +1,17 @@
 package com.fsociety.storeservices.service.impl;
 
 import com.fsociety.storeservices.entity.Tusers;
+import com.fsociety.storeservices.entity.Tperson;
+import com.fsociety.storeservices.repository.TpersonRepository;
+import com.fsociety.storeservices.repository.TrolesRepository;
 import com.fsociety.storeservices.repository.TusersRepository;
 import com.fsociety.storeservices.service.TusersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -21,17 +26,39 @@ public class TusersServiceImpl implements TusersService{
 
 	@Autowired
 	private TusersRepository tusersRepository;
+	
+	 @Autowired
+	private TpersonRepository tpersonRepository;
+	 
+	 @Autowired
+	private TrolesRepository trolesRepository;
 
+	private Tperson tperson;
+
+/////////////////////////////////////////////////////////////	
+	
 	@Override
 	public void insert(Tusers tusers ) throws Exception{
+	tperson = null;
 		LOGGER.debug(">>>Insert()->tusers:{}",tusers);
 		try{
-			tusersRepository.save(tusers);
+	  
+	  
+	  
+      tusers.getIdPerson().setStatus(true);
+	  tusers.setIdPerson(tpersonRepository.save(tusers.getIdPerson()));	
+	  
+		tusers.setStatus(true);
+		tusersRepository.save(tusers);
+	     
+		LOGGER.debug("final>>Insert()->tusers:{}",tusers);
 		}catch (Exception e){
 			LOGGER.error("Exception: {}",e);
 			throw new Exception(e);
 		}
 	}
+	
+	////////////////////////////////////////
 	@Override
 	public void update(Integer id, Map<String,Object> data) throws Exception{
 

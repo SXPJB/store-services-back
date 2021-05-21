@@ -22,7 +22,7 @@ public class TusersEndpoint{
 	@Autowired
 	private TusersService tusersService;
 
-
+////////////////////////////////////////////////////////////
 	@PostMapping("/insert")
 	public ResponseEntity<ResponseBody<Void>> insert(@RequestBody Tusers tusers){
 		LOGGER.debug(">>>Insert()->tusers:{}",tusers);
@@ -36,6 +36,7 @@ public class TusersEndpoint{
 	return response;
 	}
 
+	////////////////////////////////////////////////////////////
 	@PostMapping("/update/{id}")
 	public ResponseEntity<ResponseBody<Void>> update(@PathVariable Integer id, @RequestBody Map<String,Object> data){
 		LOGGER.debug(">>>> update->id: {}, tusers: {}",id,data);
