@@ -1,6 +1,8 @@
 package com.fsociety.storeservices.service.impl;
 
 import com.fsociety.storeservices.entity.Ttraking;
+import com.fsociety.storeservices.entity.bo.TrackingBo;
+import com.fsociety.storeservices.entity.bo.TrackingBuilder;
 import com.fsociety.storeservices.repository.TtrakingRepository;
 import com.fsociety.storeservices.service.TtrakingService;
 import org.slf4j.Logger;
@@ -8,14 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
-
-import java.util.Date;
 
 @Service
 public class TtrakingServiceImpl implements TtrakingService {
@@ -30,6 +28,8 @@ public class TtrakingServiceImpl implements TtrakingService {
     public void insert(Ttraking ttraking) throws Exception {
         LOGGER.debug(">>>Insert()->ttraking:{}", ttraking);
         try {
+            ttraking.setCeratedAt(new Date());
+            ttraking.setStatus(true);
             ttrakingRepository.save(ttraking);
         } catch (Exception e) {
             LOGGER.error("Exception: {}", e.getMessage());
@@ -46,11 +46,6 @@ public class TtrakingServiceImpl implements TtrakingService {
             if (!ttrakingOptional.isPresent()) {
                 throw new Exception("No existe el registro");
             }
-            //idOrder
-//			if(data.containsKey("idOrder")){
-//				Integer idOrder = (Integer)data.get("idOrder");
-//				ttrakingOptional.get().setIdOrder(idOrder);
-//			}
             //direction
             if (data.containsKey("direction")) {
                 String direction = data.get("direction").toString();
@@ -106,6 +101,27 @@ public class TtrakingServiceImpl implements TtrakingService {
         }
         LOGGER.debug(">>>> findAll <<<< ttrakingList: {}", ttrakingList);
         return ttrakingList;
+    }
+
+    @Override
+    public List<TrackingBo> findByOrder(int idOrder) throws Exception {
+        List<TrackingBo> trackingBos = null;
+        try {
+            List<Ttraking> ttrakings = ttrakingRepository.findByOrder(idOrder);
+            if(ttrakings.isEmpty()){
+                throw new Exception("No existen ordenes");
+            }
+
+            List<TrackingBo> finalTrackingBos = new ArrayList<>();
+            ttrakings.forEach(t->{
+                finalTrackingBos.add(TrackingBuilder.fromEntity(t));
+            });
+            trackingBos = finalTrackingBos;
+        }catch (Exception e){
+            LOGGER.error("Exception: {}", e.getMessage());
+            throw new Exception(e);
+        }
+        return trackingBos;
     }
 
 }

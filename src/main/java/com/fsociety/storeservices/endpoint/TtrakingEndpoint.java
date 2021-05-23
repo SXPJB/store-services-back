@@ -1,6 +1,7 @@
 package com.fsociety.storeservices.endpoint;
 
 import com.fsociety.storeservices.entity.Ttraking;
+import com.fsociety.storeservices.entity.bo.TrackingBo;
 import com.fsociety.storeservices.service.TtrakingService;
 import com.fsociety.storeservices.config.ResponseBody;
 import com.fsociety.storeservices.config.Utils;
@@ -65,7 +66,7 @@ public class TtrakingEndpoint{
 	@GetMapping("/findAll")
 	public ResponseEntity<ResponseBody<List<Ttraking>>> findAll(@RequestParam("page") int page,@RequestParam("size") int size){
 		LOGGER.debug(">>>> findAll <<<< page: {} size: {}",page,size);
-		ResponseEntity<ResponseBody<List<Ttraking>>> response=null;
+		ResponseEntity<ResponseBody<List<Ttraking>>> response = null;
 		List<Ttraking>ttrakingList=null;
 		try{
 			ttrakingList=ttrakingService.findAll(page,size);
@@ -74,5 +75,17 @@ public class TtrakingEndpoint{
 			response=Utils.<List<Ttraking>>response(HttpStatus.NOT_FOUND,"Lista encontrada",ttrakingList);
 		}
 		return response;
+	}
+	@GetMapping("/findByOrder")
+	public ResponseEntity<ResponseBody<List<TrackingBo>>>findByOrder(@RequestParam("idOrder") int idOrder){
+		ResponseEntity<ResponseBody<List<TrackingBo>>> res = null;
+		List<TrackingBo> trackingBos = null;
+		try {
+			trackingBos=ttrakingService.findByOrder(idOrder);
+			res=Utils.<List<TrackingBo>>response(HttpStatus.OK,"Historial encontrado",trackingBos);
+		}catch (Exception e){
+			res=Utils.<List<TrackingBo>>response(HttpStatus.OK,"No hay historial",trackingBos);
+		}
+		return res;
 	}
 }

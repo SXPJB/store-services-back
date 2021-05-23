@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Date;
 @Entity
 @Table(name= "ttraking")
+@NamedQueries({
+		@NamedQuery(name = "Ttraking.findByOrder",query = "SELECT t FROM Ttraking t WHERE t.idOrder.id = :idOrder and t.status = true")
+})
 public class Ttraking implements Serializable{ 
 
 	@Id

@@ -1,17 +1,16 @@
 package com.fsociety.storeservices.entity;
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.*;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Date;
 @Entity
 @Table(name= "tproducts")
+@NamedQueries({
+				@NamedQuery(name = "Tproducts.findActivePageOrder",query = "SELECT p FROM Tproducts p WHERE p.status = true ")
+})
 public class Tproducts implements Serializable{ 
 
 	@Id

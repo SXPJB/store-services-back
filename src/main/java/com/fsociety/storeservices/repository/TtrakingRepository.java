@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface TtrakingRepository extends JpaRepository<Ttraking,Integer>{
-
+    List<Ttraking>findByOrder(@Param("idOrder") int idOrder);
 }

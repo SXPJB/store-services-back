@@ -90,7 +90,8 @@ public class TproductsServiceImpl implements TproductsService {
             if (!tproductsOptional.isPresent()) {
                 throw new Exception("No existe el registro");
             }
-            tproductsRepository.delete(tproductsOptional.get());
+            tproductsOptional.get().setStatus(false);
+            tproductsRepository.save(tproductsOptional.get());
         } catch (Exception e) {
             LOGGER.error("Exception: {}", e);
             throw new Exception(e);
@@ -103,7 +104,7 @@ public class TproductsServiceImpl implements TproductsService {
         List<Tproducts> tproductsList = null;
         try {
             Pageable pageable = PageRequest.of(page, size);
-            tproductsList = tproductsRepository.findAll(pageable).toList();
+            tproductsList = tproductsRepository.findActivePageOrder(pageable).toList();
         } catch (Exception e) {
             LOGGER.error("Exception: {}", e);
             throw new Exception(e);
