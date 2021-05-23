@@ -13,6 +13,7 @@ import java.util.Date;
 @NamedQueries({
         @NamedQuery(name = "Torders.findOrderActiveByUserStateC", query = "SELECT o FROM Torders o WHERE o.id = :idOrder and o.status = true and o.idUser.id = :idUser and o.state='C'")
         , @NamedQuery(name = "Torders.findOrderByUserPage", query = "SELECT o FROM Torders o WHERE o.status = true and o.idUser.id = :idUser and o.state = 'T'")
+        , @NamedQuery(name = "Torders.findAllStateT", query = "SELECT o FROM Torders o WHERE o.status = true and o.state = 'T'")
         , @NamedQuery(name = "Torders.findOrderByUserSateC", query = "SELECT o FROM Torders o WHERE o.status = true and o.idUser.id = :idUser and o.state = 'C'")
 })
 public class Torders implements Serializable {

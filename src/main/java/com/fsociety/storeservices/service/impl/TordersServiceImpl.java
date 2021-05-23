@@ -134,7 +134,7 @@ public class TordersServiceImpl implements TordersService {
         List<Torders> tordersList = null;
         try {
             Pageable pageable = PageRequest.of(page, size);
-            tordersList = tordersRepository.findAll(pageable).toList();
+            tordersList = tordersRepository.findAllStateT(pageable).toList();
         } catch (Exception e) {
             LOGGER.error("Exception: {}", e);
             throw new Exception(e);
