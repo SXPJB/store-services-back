@@ -10,4 +10,5 @@ import java.util.List;
 public interface TordersRepository extends JpaRepository<Torders,Integer>{
     Torders findOrderActiveByUserStateC(@Param("idOrder") int idOrder,@Param("idUser") int idUser);
     List<Torders>findOrderByUserPage(@Param("idUser") int idUser);
+    Torders findOrderByUserSateC(@Param("idUser") int idUser);
 }

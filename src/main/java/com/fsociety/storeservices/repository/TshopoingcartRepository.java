@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface TshopoingcartRepository extends JpaRepository<Tshopoingcart,Integer>{
     List<Tshopoingcart>findShoppingCartByOrder(@Param("idOrder")int idOrder);
+    Tshopoingcart findShopoingcartByOrderAndProduct(@Param("idOrder")int idOrder,@Param("idProduct") int idProduct);
 }

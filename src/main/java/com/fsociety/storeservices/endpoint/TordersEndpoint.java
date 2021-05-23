@@ -93,4 +93,16 @@ public class TordersEndpoint {
         }
         return res;
     }
+    @GetMapping("/findOrderByUserSateC/{idUser}")
+    private ResponseEntity<ResponseBody<Torders>> findOrderByUserSateC(@PathVariable int idUser){
+        ResponseEntity<ResponseBody<Torders>> res = null;
+        Torders torders = null;
+        try {
+            torders = tordersService.findOrderActiveByUserStateC(idUser);
+            res = Utils.<Torders>response(HttpStatus.OK, "Lista de pedidos encotrada", torders);
+        }catch (Exception e){
+            res = Utils.<Torders>response(HttpStatus.OK, "No existen datos de pedidos activos", torders);
+        }
+        return res;
+    }
 }

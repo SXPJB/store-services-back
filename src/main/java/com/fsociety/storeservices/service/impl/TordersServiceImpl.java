@@ -167,6 +167,22 @@ public class TordersServiceImpl implements TordersService {
         return ordersFullBOS;
     }
 
+    @Override
+    public Torders findOrderActiveByUserStateC(int idUser) throws Exception {
+        Torders torders = null;
+        try {
+            torders = tordersRepository.findOrderByUserSateC(idUser);
+            if(torders==null){
+                throw new Exception("No existe ordenes para el usuario seleccionado");
+            }
+        }catch (Exception e){
+            LOGGER.error("Exception: {}", e.getMessage());
+            throw new Exception(e);
+        }
+        LOGGER.info(">>>>>findOrderActiveByUserStateC<<<<<< {}",torders);
+        return torders;
+    }
+
     private OrdersFullBO findShoppingCartByUser(Torders torders) throws Exception {
         OrdersFullBO ordersFullBO = null;
         List<ShoppingCartBO> shoppingCartBOS;
@@ -184,5 +200,7 @@ public class TordersServiceImpl implements TordersService {
         }
         return ordersFullBO;
     }
+
+
 
 }

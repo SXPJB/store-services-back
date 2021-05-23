@@ -10,4 +10,5 @@ public interface TordersService{
 	void delete(Integer id) throws Exception;
 	List<Torders> findAll(int page,int size) throws Exception;
 	List<OrdersFullBO>findOrderByUserPage(int idUser)throws Exception;
+	Torders findOrderActiveByUserStateC(int idUser) throws Exception;
 }
